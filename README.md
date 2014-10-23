@@ -1,14 +1,14 @@
 OverAppBrowser
 ============
 
-Render webview over cordova webview.
+Render a webview over your cordova webview.
 
     oab = new OverAppBrowser('http://www.google.fr', 0, 100, 320, 320);
     oab.addEventListener('loadstop', function(){
 			oab.insertCSS({code:'#hplogoo {-webkit-transform: rotate(180deg);}'});
     });
 
-This loads google.fr over your html app at x=0, y=100, width=320, height=320 and rotate the homepage logo
+This loads google.fr over your html app at x=0, y=100, width=320, height=320 and rotates the homepage logo
 
 
 ## License
