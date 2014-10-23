@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+        id="com.lesfrancschatons.cordova.plugins.overappbrowser"
+        version="1.0.0">
+
+    <name>Over App Browser</name>
+
+    <description>Render a webview over your cordova UI (you choose the position) </description>
+    <keywords>ios</keywords>
+    <license>MIT</license>
+
+    <author>Emmanuel Tabard</author>
+
+    <engines>
+        <engine name="cordova" version=">=3.0.0" />
+    </engines>
+
+    <js-module src="www/OverAppBrowser.js" name="OverAppBrowser">
+        <clobbers target="OverAppBrowser" />
+    </js-module>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+    		<feature name="OverAppBrowser">
+    			<param name="ios-package" value="OverAppBrowser"/>
+    		</feature>
+        </config-file>
+
+    	<header-file src="src/ios/OverAppBrowser.h" />
+    	<source-file src="src/ios/OverAppBrowser.m" />
+    </platform>
+
+</plugin>
