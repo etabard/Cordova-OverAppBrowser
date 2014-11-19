@@ -1,8 +1,8 @@
 //
-//  	OverAppBrowser.m
-//  	OverAppBrowser Cordova Plugin
+//      OverAppBrowser.m
+//      OverAppBrowser Cordova Plugin
 //
-//  	Copyright 2014 Emmanuel Tabard. All rights reserved.
+//      Copyright 2014 Emmanuel Tabard. All rights reserved.
 //      MIT Licensed
 //
 
@@ -31,35 +31,35 @@
 
 - (void) open:(CDVInvokedUrlCommand *)command
 {
-	NSArray* arguments = [command arguments];
+    NSArray* arguments = [command arguments];
     
-	self.callbackId = command.callbackId;
-	NSUInteger argc = [arguments count];
-	
-	if (argc < 4) { // at a minimum we need x origin, y origin and width...
-		return;	
-	}
-	
-	if (self.overWebView != NULL) {
-        	return;//already created, don't need to create it again
-	}
-	
-	CGFloat originx,originy,width;
-	CGFloat height = 30;
-	NSString *url = [arguments objectAtIndex:0];
-	originx = [[arguments objectAtIndex:1] floatValue];
-	originy = [[arguments objectAtIndex:2] floatValue];
-	width = [[arguments objectAtIndex:3] floatValue];
-	if (argc > 3) {
-		height = [[arguments objectAtIndex:4] floatValue];
-	}
-	
-	CGRect viewRect = CGRectMake(
-								 originx, 
-								 originy, 
-								 width, 
-								 height
-								 );
+    self.callbackId = command.callbackId;
+    NSUInteger argc = [arguments count];
+    
+    if (argc < 4) { // at a minimum we need x origin, y origin and width...
+        return; 
+    }
+    
+    if (self.overWebView != NULL) {
+            return;//already created, don't need to create it again
+    }
+    
+    CGFloat originx,originy,width;
+    CGFloat height = 30;
+    NSString *url = [arguments objectAtIndex:0];
+    originx = [[arguments objectAtIndex:1] floatValue];
+    originy = [[arguments objectAtIndex:2] floatValue];
+    width = [[arguments objectAtIndex:3] floatValue];
+    if (argc > 3) {
+        height = [[arguments objectAtIndex:4] floatValue];
+    }
+    
+    CGRect viewRect = CGRectMake(
+                                 originx, 
+                                 originy, 
+                                 width, 
+                                 height
+                                 );
 
   self.overWebView = [[UIWebView alloc] initWithFrame:viewRect];
   NSURL *nsurl=[NSURL URLWithString:url];
@@ -103,15 +103,15 @@
 }
 
 /**
- * The iframe bridge provided for the OverAppBrowser is capable of executing any oustanding callback belonging
- * to the OverAppBrowser plugin. Care has been taken that other callbacks cannot be triggered, and that no
+ * The iframe bridge provided for the InAppBrowser is capable of executing any oustanding callback belonging
+ * to the InAppBrowser plugin. Care has been taken that other callbacks cannot be triggered, and that no
  * other code execution is possible.
  *
  * To trigger the bridge, the iframe (or any other resource) should attempt to load a url of the form:
  *
  * gap-iab://<callbackId>/<arguments>
  *
- * where <callbackId> is the string id of the callback to trigger (something like "OverAppBrowser0123456789")
+ * where <callbackId> is the string id of the callback to trigger (something like "InAppBrowser0123456789")
  *
  * If present, the path component of the special gap-iab:// url is expected to be a URL-escaped JSON-encoded
  * value to pass to the callback. [NSURL path] should take care of the URL-unescaping, and a JSON_EXCEPTION
@@ -204,7 +204,7 @@
 {
     if (!_injectedIframeBridge) {
         _injectedIframeBridge = YES;
-        // Create an iframe bridge in the new document to communicate with the CDVOverAppBrowserViewController
+        // Create an iframe bridge in the new document to communicate with the CDVInAppBrowserViewController
         [self.overWebView stringByEvaluatingJavaScriptFromString:@"(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)"];
     }
     
