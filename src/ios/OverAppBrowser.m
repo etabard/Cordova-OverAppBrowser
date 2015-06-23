@@ -94,9 +94,9 @@
     }
     
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:[[arguments objectAtIndex:0] floatValue]];
+    [UIView setAnimationDuration:[[arguments objectAtIndex:1] floatValue]];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [self.overWebView setAlpha:[[arguments objectAtIndex:1] floatValue]];
+    [self.overWebView setAlpha:[[arguments objectAtIndex:0] floatValue]];
     [UIView commitAnimations];
 }
 
