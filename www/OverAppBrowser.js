@@ -1,4 +1,3 @@
-//
 //	OverAppBrowser.js
 //	OverAppBrowser Cordova Plugin
 //
@@ -32,7 +31,10 @@ OverAppBrowser.prototype = {
         exec(null, null, "OverAppBrowser", "close", []);
     },
     show: function (eventname) {
-      exec(null, null, "OverAppBrowser", "show", []);
+        exec(null, null, "OverAppBrowser", "show", []);
+    },
+    fade: function (toAlpha, duration) {
+        exec(null, null, "OverAppBrowser", "fade", [toAlpha, duration]);
     },
     addEventListener: function (eventname,f) {
         if (eventname in this.channels) {
