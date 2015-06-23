@@ -85,6 +85,21 @@
 
 }
 
+- (void)fade:(CDVInvokedUrlCommand *)command {
+    NSArray* arguments = [command arguments];
+    NSUInteger argc = [arguments count];
+    
+    if (argc < 2) {
+        return;
+    }
+    
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:[[arguments objectAtIndex:0] floatValue]];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [self.overWebView setAlpha:[[arguments objectAtIndex:1] floatValue]];
+    [UIView commitAnimations];
+}
+
 - (BOOL)isValidCallbackId:(NSString *)callbackId
 {
     NSError *err = nil;
