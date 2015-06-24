@@ -36,6 +36,9 @@ OverAppBrowser.prototype = {
     fade: function (toAlpha, duration) {
         exec(null, null, "OverAppBrowser", "fade", [toAlpha, duration]);
     },
+    resize: function (originx, originy, width, height) {
+        exec(null, null, "OverAppBrowser", "resize", [originx, originy, width, height]);
+    },
     addEventListener: function (eventname,f) {
         if (eventname in this.channels) {
             this.channels[eventname].subscribe(f);
