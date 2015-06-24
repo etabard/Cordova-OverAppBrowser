@@ -100,6 +100,39 @@
     [UIView commitAnimations];
 }
 
+- (void)resize:(CDVInvokedUrlCommand *)command {
+    NSArray* arguments = [command arguments];
+    
+    self.callbackId = command.callbackId;
+    NSUInteger argc = [arguments count];
+    
+    if (argc < 4) { // at a minimum we need x origin, y origin and width...
+        return;
+    }
+    
+    if (self.overWebView != NULL) {
+        return;//already created, don't need to create it again
+    }
+    
+    CGFloat originx,originy,width;
+    CGFloat height = 30;
+    originx = [[arguments objectAtIndex:1] floatValue];
+    originy = [[arguments objectAtIndex:2] floatValue];
+    width = [[arguments objectAtIndex:3] floatValue];
+    if (argc > 3) {
+        height = [[arguments objectAtIndex:4] floatValue];
+    }
+    
+    CGRect viewRect = CGRectMake(
+                                 originx,
+                                 originy,
+                                 width,
+                                 height
+                                 );
+    
+    self.overWebView.frame = viewRect;
+}
+
 - (BOOL)isValidCallbackId:(NSString *)callbackId
 {
     NSError *err = nil;
