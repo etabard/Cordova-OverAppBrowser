@@ -100,9 +100,9 @@
 
 - (void)fadeToAlpha:(float)alpha duration:(float)duration {
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration: alpha];
+    [UIView setAnimationDuration: duration];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [self.overWebView setAlpha: duration];
+    [self.overWebView setAlpha: alpha];
     [UIView commitAnimations];
 }
 
