@@ -1,0 +1,19 @@
+{
+    "version": "1.1.0",
+    "name": "com.lesfrancschatons.cordova.plugins.overappbrowser",
+    "cordova_name": "Over App Browser",
+    "description": "Render a webview over your cordova UI (you choose the position) ",
+    "license": "MIT",
+    "keywords": [
+        "ios"
+    ],
+    "platforms": [
+        "ios"
+    ],
+    "engines": [
+        {
+            "name": "cordova",
+            "version": ">=3.0.0"
+        }
+    ]
+}
