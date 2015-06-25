@@ -41,7 +41,7 @@
     }
     
     if (self.overWebView != NULL) {
-            return;//already created, don't need to create it again
+        [self browserExit]; // reload it as parameters may have changed
     }
     
     CGFloat originx,originy,width;
