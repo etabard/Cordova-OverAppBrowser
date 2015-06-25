@@ -54,7 +54,7 @@
         height = [[arguments objectAtIndex:4] floatValue];
     }
     if (argc > 4) {
-        isAutoFadeIn = [[arguments objectAtIndex:4] boolValue];
+        isAutoFadeIn = [[arguments objectAtIndex:5] boolValue];
     }
     
     CGRect viewRect = CGRectMake(
