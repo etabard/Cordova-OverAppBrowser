@@ -41,7 +41,7 @@
     }
     
     if (self.overWebView != NULL) {
-        [self browserExit]; // reload it as parameters may have been changed
+        [self browserExit]; // reload it as parameters may have changed
     }
     
     CGFloat originx,originy,width;
@@ -52,6 +52,9 @@
     width = [[arguments objectAtIndex:3] floatValue];
     if (argc > 3) {
         height = [[arguments objectAtIndex:4] floatValue];
+    }
+    if (argc > 4) {
+        isAutoFadeIn = [[arguments objectAtIndex:4] boolValue];
     }
     
     CGRect viewRect = CGRectMake(
@@ -92,11 +95,14 @@
     if (argc < 2) {
         return;
     }
-    
+    [self fadeToAlpha:[[arguments objectAtIndex:0] floatValue] duration:[[arguments objectAtIndex:1] floatValue]];
+}
+
+- (void)fadeToAlpha:(float)alpha duration:(float)duration {
     [UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:[[arguments objectAtIndex:1] floatValue]];
+    [UIView setAnimationDuration: alpha];
     [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-    [self.overWebView setAlpha:[[arguments objectAtIndex:0] floatValue]];
+    [self.overWebView setAlpha: duration];
     [UIView commitAnimations];
 }
 
@@ -222,11 +228,9 @@
         return;
     }
     if (self.callbackId != nil && self.currentUrl != nil) {
-        [UIView beginAnimations:NULL context:NULL];
-        [UIView setAnimationDuration:1.0]; // you can set this to whatever you like
-        /* put animations to be executed here, for example: */
-        self.overWebView.alpha = 1;    /* end animations to be executed */
-        [UIView commitAnimations]; // execute the animations listed above
+        if (isAutoFadeIn) {
+            [self fadeToAlpha:1 duration:1.0];
+        }
         
         // TODO: It would be more useful to return the URL the page is actually on (e.g. if it's been redirected).
         NSString* url = [self.currentUrl absoluteString];
