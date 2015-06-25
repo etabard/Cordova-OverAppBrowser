@@ -50,6 +50,7 @@
     originx = [[arguments objectAtIndex:1] floatValue];
     originy = [[arguments objectAtIndex:2] floatValue];
     width = [[arguments objectAtIndex:3] floatValue];
+    isAutoFadeIn = false;
     if (argc > 3) {
         height = [[arguments objectAtIndex:4] floatValue];
     }
@@ -260,7 +261,8 @@
     }
     
     if (jsWrapper != nil) {
-        NSString* sourceArrayString = [@[source] JSONString];
+        NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@[source] options:0 error:nil];
+        NSString* sourceArrayString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
         if (sourceArrayString) {
             NSString* sourceString = [sourceArrayString substringWithRange:NSMakeRange(1, [sourceArrayString length] - 2)];
             NSString* jsToInject = [NSString stringWithFormat:jsWrapper, sourceString];
