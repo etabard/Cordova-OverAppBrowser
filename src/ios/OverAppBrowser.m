@@ -109,7 +109,6 @@
 - (void)resize:(CDVInvokedUrlCommand *)command {
     NSArray* arguments = [command arguments];
     
-    self.callbackId = command.callbackId;
     NSUInteger argc = [arguments count];
     
     if (argc < 3) { // at a minimum we need x origin, y origin and width...
