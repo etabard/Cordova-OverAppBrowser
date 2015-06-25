@@ -71,13 +71,13 @@ OverAppBrowser.prototype = {
     }
 };
 
-module.exports = function(strUrl, originx,originy,width,height) {
+module.exports = function(strUrl, originx,originy,width,height, isAutoFadeIn) {
     strUrl = urlutil.makeAbsolute(strUrl);
     var oab = new OverAppBrowser();
     var cb = function(eventname) {
        oab._eventHandler(eventname);
     };
 
-    exec(cb, cb, "OverAppBrowser", "open", [strUrl, originx, originy, width, height]);
+    exec(cb, cb, "OverAppBrowser", "open", [strUrl, originx, originy, width, height, isAutoFadeIn]);
     return oab;
 };
