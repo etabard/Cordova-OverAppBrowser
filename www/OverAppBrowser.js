@@ -1,4 +1,3 @@
-//
 //	OverAppBrowser.js
 //	OverAppBrowser Cordova Plugin
 //
@@ -32,7 +31,13 @@ OverAppBrowser.prototype = {
         exec(null, null, "OverAppBrowser", "close", []);
     },
     show: function (eventname) {
-      exec(null, null, "OverAppBrowser", "show", []);
+        exec(null, null, "OverAppBrowser", "show", []);
+    },
+    fade: function (toAlpha, duration) {
+        exec(null, null, "OverAppBrowser", "fade", [toAlpha, duration]);
+    },
+    resize: function (originx, originy, width, height) {
+        exec(null, null, "OverAppBrowser", "resize", [originx, originy, width, height]);
     },
     addEventListener: function (eventname,f) {
         if (eventname in this.channels) {
@@ -66,13 +71,14 @@ OverAppBrowser.prototype = {
     }
 };
 
-module.exports = function(strUrl, originx,originy,width,height) {
+module.exports = function(strUrl, originx,originy,width,height, isAutoFadeIn) {
+    isAutoFadeIn = isAutoFadeIn || false;
     strUrl = urlutil.makeAbsolute(strUrl);
     var oab = new OverAppBrowser();
     var cb = function(eventname) {
        oab._eventHandler(eventname);
     };
 
-    exec(cb, cb, "OverAppBrowser", "open", [strUrl, originx, originy, width, height]);
+    exec(cb, cb, "OverAppBrowser", "open", [strUrl, originx, originy, width, height, isAutoFadeIn]);
     return oab;
 };

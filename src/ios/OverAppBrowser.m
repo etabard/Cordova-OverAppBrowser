@@ -41,7 +41,7 @@
     }
     
     if (self.overWebView != NULL) {
-            return;//already created, don't need to create it again
+        [self browserExit]; // reload it as parameters may have changed
     }
     
     CGFloat originx,originy,width;
@@ -52,6 +52,9 @@
     width = [[arguments objectAtIndex:3] floatValue];
     if (argc > 3) {
         height = [[arguments objectAtIndex:4] floatValue];
+    }
+    if (argc > 4) {
+        isAutoFadeIn = [[arguments objectAtIndex:5] boolValue];
     }
     
     CGRect viewRect = CGRectMake(
@@ -83,6 +86,56 @@
 
   [self.webView.superview addSubview:self.overWebView];
 
+}
+
+- (void)fade:(CDVInvokedUrlCommand *)command {
+    NSArray* arguments = [command arguments];
+    NSUInteger argc = [arguments count];
+    
+    if (argc < 2) {
+        return;
+    }
+    [self fadeToAlpha:[[arguments objectAtIndex:0] floatValue] duration:[[arguments objectAtIndex:1] floatValue]];
+}
+
+- (void)fadeToAlpha:(float)alpha duration:(float)duration {
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration: duration];
+    [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+    [self.overWebView setAlpha: alpha];
+    [UIView commitAnimations];
+}
+
+- (void)resize:(CDVInvokedUrlCommand *)command {
+    NSArray* arguments = [command arguments];
+    
+    NSUInteger argc = [arguments count];
+    
+    if (argc < 3) { // at a minimum we need x origin, y origin and width...
+        return;
+    }
+    
+    if (self.overWebView == NULL) {
+        return; // not yet created
+    }
+    
+    CGFloat originx,originy,width;
+    CGFloat height = 30;
+    originx = [[arguments objectAtIndex:0] floatValue];
+    originy = [[arguments objectAtIndex:1] floatValue];
+    width = [[arguments objectAtIndex:2] floatValue];
+    if (argc > 3) {
+        height = [[arguments objectAtIndex:3] floatValue];
+    }
+    
+    CGRect viewRect = CGRectMake(
+                                 originx,
+                                 originy,
+                                 width,
+                                 height
+                                 );
+    
+    self.overWebView.frame = viewRect;
 }
 
 - (BOOL)isValidCallbackId:(NSString *)callbackId
@@ -174,11 +227,9 @@
         return;
     }
     if (self.callbackId != nil && self.currentUrl != nil) {
-        [UIView beginAnimations:NULL context:NULL];
-        [UIView setAnimationDuration:1.0]; // you can set this to whatever you like
-        /* put animations to be executed here, for example: */
-        self.overWebView.alpha = 1;    /* end animations to be executed */
-        [UIView commitAnimations]; // execute the animations listed above
+        if (isAutoFadeIn) {
+            [self fadeToAlpha:1 duration:1.0];
+        }
         
         // TODO: It would be more useful to return the URL the page is actually on (e.g. if it's been redirected).
         NSString* url = [self.currentUrl absoluteString];
