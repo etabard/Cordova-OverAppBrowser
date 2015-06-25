@@ -106,21 +106,21 @@
     self.callbackId = command.callbackId;
     NSUInteger argc = [arguments count];
     
-    if (argc < 4) { // at a minimum we need x origin, y origin and width...
+    if (argc < 3) { // at a minimum we need x origin, y origin and width...
         return;
     }
     
-    if (self.overWebView != NULL) {
-        return;//already created, don't need to create it again
+    if (self.overWebView == NULL) {
+        return; // not yet created
     }
     
     CGFloat originx,originy,width;
     CGFloat height = 30;
-    originx = [[arguments objectAtIndex:1] floatValue];
-    originy = [[arguments objectAtIndex:2] floatValue];
-    width = [[arguments objectAtIndex:3] floatValue];
+    originx = [[arguments objectAtIndex:0] floatValue];
+    originy = [[arguments objectAtIndex:1] floatValue];
+    width = [[arguments objectAtIndex:2] floatValue];
     if (argc > 3) {
-        height = [[arguments objectAtIndex:4] floatValue];
+        height = [[arguments objectAtIndex:3] floatValue];
     }
     
     CGRect viewRect = CGRectMake(
