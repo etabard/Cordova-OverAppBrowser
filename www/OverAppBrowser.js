@@ -72,6 +72,7 @@ OverAppBrowser.prototype = {
 };
 
 module.exports = function(strUrl, originx,originy,width,height, isAutoFadeIn) {
+    isAutoFadeIn = isAutoFadeIn || false;
     strUrl = urlutil.makeAbsolute(strUrl);
     var oab = new OverAppBrowser();
     var cb = function(eventname) {
