@@ -1,7 +1,7 @@
-OverAppBrowser 1.1
+OverAppBrowser 1.2
 ==================
 
-Render a webview over your cordova webview.
+Render a webview over your cordova webview (ios and android).
 
 Installation
 ------------
@@ -16,8 +16,20 @@ Documentation
 
 	//function(strUrl, originx, originy, width, height, isAutoFadeIn)
     oab = new OverAppBrowser('http://www.google.fr', 0, 100, 320, 320, true);
+
+    //Events : loadstop, loadstart, exit, loaderror
     oab.addEventListener('loadstop', function(){
+            //insert inline style
 			oab.insertCSS({code:'#hplogoo {-webkit-transform: rotate(180deg);}'});
+
+            //insert css file
+            oab.insertCSS({file:'http://domain.com/style.css'});
+
+            //execute javascript code
+            oab.executeScript({code:'window.alert("test");'});
+
+            //insert javascript file
+            oab.executeScript({file:'http://domain.com/script.js'});
     });
 
     //Fade the webview
