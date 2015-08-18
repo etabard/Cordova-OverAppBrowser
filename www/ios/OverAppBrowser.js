@@ -76,6 +76,9 @@ module.exports = function(strUrl, originx,originy,width,height, isAutoFadeIn) {
     strUrl = urlutil.makeAbsolute(strUrl);
     var oab = new OverAppBrowser();
     var cb = function(eventname) {
+        if (!eventname) {
+            return;
+        }
        oab._eventHandler(eventname);
     };
 
