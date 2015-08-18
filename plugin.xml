@@ -35,14 +35,27 @@
     </platform>
 
     <platform name="android">
-        <js-module src="www/iframe/OverAppBrowser.js" name="OverAppBrowser">
+        <js-module src="www/ios/OverAppBrowser.js" name="OverAppBrowser">
             <clobbers target="OverAppBrowser" />
         </js-module>
 
-        <config-file target="config.xml" parent="/*">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="OverAppBrowser"> 
+                <param name="android-package" value="com.lesfrancschatons.cordova.plugins.overappbrowser.OverAppBrowser"/>
+            </feature>
+        </config-file>
+
+        <!-- <config-file target="config.xml" parent="/*">
             <feature name="OverAppBrowser">
                 <param name="android-package" value="OverAppBrowser"/>
             </feature>
-        </config-file>
+        </config-file> -->
+    </platform>
+
+    <!-- browser -->
+    <platform name="browser">
+        <js-module src="www/iframe/OverAppBrowser.js" name="OverAppBrowser">
+            <clobbers target="OverAppBrowser" />
+        </js-module>
     </platform>
 </plugin>
