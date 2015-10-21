@@ -44,6 +44,9 @@
                 <param name="android-package" value="com.lesfrancschatons.cordova.plugins.overappbrowser.OverAppBrowser"/>
             </feature>
         </config-file>
+        <source-file src="src/android/OverAppBrowser.java" target-dir="src/com/lesfrancschatons/cordova/plugins/overappbrowser" />
+        <source-file src="src/android/OverAppBrowserDialog.java" target-dir="src/com/lesfrancschatons/cordova/plugins/overappbrowser" />
+        <source-file src="src/android/OverAppChromeClient.java" target-dir="src/com/lesfrancschatons/cordova/plugins/overappbrowser" />
 
         <!-- <config-file target="config.xml" parent="/*">
             <feature name="OverAppBrowser">
