@@ -7,7 +7,7 @@
 //
 
 #import "OverAppBrowser.h"
-#import <Cordova/CDVJSON.h>
+//#import <Cordova/CDVJSON.h>
 
 @implementation OverAppBrowser
 
@@ -16,8 +16,8 @@
 
 -(CDVPlugin*) initWithWebView:(UIWebView*)theWebView
 {
-    self = (OverAppBrowser*)[super initWithWebView:theWebView];
-    
+    //self = (OverAppBrowser*)[super initWithWebView:theWebView];
+    [self pluginInitialize];
     if (self != nil) {
         _callbackIdPattern = nil;
     }
@@ -256,8 +256,25 @@
 {
     if (!_injectedIframeBridge) {
         _injectedIframeBridge = YES;
+
+				//[[super webView] stringByEvaluatingJavaScriptFromString: [NSString stringWithFormat:@"javascript:window.plugins.appsFlyer.onInstallConversionDataLoaded(%@)", JSONString]];
+				//[[super webViewEngine] evaluateJavaScript:[NSString stringWithFormat:@"javascript:window.plugins.appsFlyer.onInstallConversionDataLoaded(%@)", JSONString] completionHandler:nil];
+				
+
+
+
         // Create an iframe bridge in the new document to communicate with the CDVInAppBrowserViewController
-        [self.overWebView stringByEvaluatingJavaScriptFromString:@"(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)"];
+        //[self.overWebView stringByEvaluatingJavaScriptFromString:@"(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)"];
+
+				NSString* jsString = [NSString stringWithString:@"(function(d){var e = _cdvIframeBridge = d.createElement('iframe');e.style.display='none';d.body.appendChild(e);})(document)"];
+
+				if ([self.overWebView respondsToSelector:@selector(stringByEvaluatingJavaScriptFromString:)]) {
+					// Cordova-iOS pre-4
+					[self.overWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsString waitUntilDone:NO];
+				} else {
+					// Cordova-iOS 4+
+					[self.overWebView performSelectorOnMainThread:@selector(evaluateJavaScript:completionHandler:) withObject:jsString waitUntilDone:NO];
+				}
     }
     
     if (jsWrapper != nil) {
@@ -266,10 +283,24 @@
         if (sourceArrayString) {
             NSString* sourceString = [sourceArrayString substringWithRange:NSMakeRange(1, [sourceArrayString length] - 2)];
             NSString* jsToInject = [NSString stringWithFormat:jsWrapper, sourceString];
-            [self.overWebView stringByEvaluatingJavaScriptFromString:jsToInject];
+            //[self.overWebView stringByEvaluatingJavaScriptFromString:jsToInject];
+						if ([self.overWebView respondsToSelector:@selector(stringByEvaluatingJavaScriptFromString:)]) {
+							// Cordova-iOS pre-4
+							[self.overWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:jsToInject waitUntilDone:NO];
+						} else {
+							// Cordova-iOS 4+
+							[self.overWebView performSelectorOnMainThread:@selector(evaluateJavaScript:completionHandler:) withObject:jsToInject waitUntilDone:NO];
+						}
         }
     } else {
-        [self.overWebView stringByEvaluatingJavaScriptFromString:source];
+        //[self.overWebView stringByEvaluatingJavaScriptFromString:source];
+				if ([self.overWebView respondsToSelector:@selector(stringByEvaluatingJavaScriptFromString:)]) {
+					// Cordova-iOS pre-4
+					[self.overWebView performSelectorOnMainThread:@selector(stringByEvaluatingJavaScriptFromString:) withObject:source waitUntilDone:NO];
+				} else {
+					// Cordova-iOS 4+
+					[self.overWebView performSelectorOnMainThread:@selector(evaluateJavaScript:completionHandler:) withObject:source waitUntilDone:NO];
+				}
     }
 }
 
@@ -345,7 +376,5 @@
     self.overWebView = nil;
     self.currentUrl = nil;
 }
-
-
 
 @end
