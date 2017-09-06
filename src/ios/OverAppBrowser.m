@@ -78,7 +78,7 @@
   self.overWebView.contentMode = UIViewContentModeScaleToFill;
   self.overWebView.multipleTouchEnabled = YES;
   self.overWebView.opaque = NO;
-  self.overWebView.scalesPageToFit = NO;
+  self.overWebView.scalesPageToFit = YES;
   self.overWebView.userInteractionEnabled = YES;
     
     self.overWebView.alpha = 0;
