@@ -1,3 +1,16 @@
+# This repository is no longer maintained.
+
+
+This plugin is outdated as it uses UIWebView which is deprecated by Apple (many thanks to sagrawal31 for pointing this out): 
+
+> Apple stopped accepting new apps which uses UIWebView from April 2020 while the existing apps have to upgrade to use WKWebView by Dec 2020 and this plugin uses UIWebView.
+
+Please upvote and follow this issue https://github.com/apache/cordova-plugin-inappbrowser/issues/668 
+
+Issue reports and pull requests will not be attended.
+
+
+
 OverAppBrowser 1.2
 ==================
 
