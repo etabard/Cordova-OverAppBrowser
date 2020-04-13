@@ -5,7 +5,7 @@ This plugin is outdated as it uses UIWebView which is deprecated by Apple (many 
 
 > Apple stopped accepting new apps which uses UIWebView from April 2020 while the existing apps have to upgrade to use WKWebView by Dec 2020 and this plugin uses UIWebView.
 
-Please upvote and follow this issue https://github.com/apache/cordova-plugin-inappbrowser/issues/668 
+Please upvote and follow this issue [apache/cordova-plugin-inappbrowser#668](https://github.com/apache/cordova-plugin-inappbrowser/issues/668)
 
 Issue reports and pull requests will not be attended.
 
